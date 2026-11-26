@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MinLabz — Small, honest apps for your Mac and PC</title>
-  <meta name="description" content="MinLabz makes free, open-source desktop apps: MinTransfer (phone backup & recovery), MinSoundFX (system-wide audio enhancer) and MinDesk (safe Mac storage cleaner). Local-only, no accounts." />
+  <meta name="description" content="MinLabz makes free, open-source desktop apps: MinTransfer (phone backup & recovery), MinSoundFX (system-wide audio enhancer) and MinDesk (safe Mac storage cleaner) and MinPoint (Shift + Right Click toolkit). Local-only, no accounts." />
   <meta name="theme-color" content="#07080c" />
   <meta property="og:title" content="MinLabz — Small, honest apps" />
-  <meta property="og:description" content="MinTransfer, MinSoundFX and MinDesk. Free, open source, local-only." />
+  <meta property="og:description" content="MinTransfer, MinSoundFX, MinDesk and MinPoint. Free, open source, local-only." />
   <meta property="og:image" content="assets/shots/minsoundfx/dashboard.jpg" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://rsms.me" />
@@ -23,13 +23,14 @@
 <body>
   <header class="nav" id="nav">
     <a class="brand" href="#top" aria-label="MinLabz home">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       MinLabz
     </a>
     <nav class="nav-links" aria-label="Products">
       <a href="#mintransfer">MinTransfer</a>
       <a href="#minsoundfx">MinSoundFX</a>
       <a href="#mindesk">MinDesk</a>
+      <a href="#minpoint">MinPoint</a>
       <a href="#why">Why MinLabz</a>
     </nav>
     <a class="btn btn-small" href="#downloads">Download</a>
@@ -42,7 +43,7 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="dot"></span> Free · Open source · Local-only</p>
         <h1>Small apps.<br /><span class="grad">Big difference.</span></h1>
-        <p class="lede">MinLabz builds focused desktop tools that do one job well and never phone home. Move your phone, tune your sound, clean your disk.</p>
+        <p class="lede">MinLabz builds focused desktop tools that do one job well and never phone home. Move your phone, tune your sound, clean your disk, command your desktop.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#downloads">Get the apps</a>
           <a class="btn btn-ghost" href="#mintransfer">Take the tour ↓</a>
@@ -50,7 +51,7 @@
         <p class="hint">Drag to spin · click a tile to jump</p>
       </div>
       <div class="hero-stats" id="hero-stats">
-        <div><b>3</b><span>apps</span></div>
+        <div><b>4</b><span>apps</span></div>
         <div><b>0</b><span>accounts needed</span></div>
         <div><b data-total-downloads>—</b><span>downloads</span></div>
       </div>
@@ -179,6 +180,46 @@
       </div>
     </section>
 
+    <!-- PRODUCT: MinPoint -->
+    <section class="product flip" id="minpoint" style="--accent:#ff7a45;--accent2:#ff5c8a">
+      <div class="product-head reveal">
+        <img class="app-icon" src="assets/icons/minpoint.png" alt="" width="96" height="96" />
+        <div>
+          <p class="eyebrow">Shift + Right Click, anywhere</p>
+          <h2>MinPoint</h2>
+          <p class="tagline">Your computer. Your controls. Writing help, clipboard, snippets, screen text, windows and a launcher behind one gesture.</p>
+        </div>
+      </div>
+
+      <div class="showcase reveal" data-gallery="minpoint">
+        <div class="screen tilt">
+          <div class="screen-bar"><i></i><i></i><i></i><span>MinPoint</span></div>
+          <img class="screen-img" src="assets/shots/minpoint/overview.jpg" alt="MinPoint overview" />
+          <div class="screen-glare"></div>
+        </div>
+        <div class="thumbs" role="tablist">
+          <button data-src="assets/shots/minpoint/overview.jpg" class="on">Overview</button>
+          <button data-src="assets/shots/minpoint/quick-actions.jpg">Quick actions</button>
+          <button data-src="assets/shots/minpoint/writing.jpg">Writing</button>
+          <button data-src="assets/shots/minpoint/snippets.jpg">Text expander</button>
+          <button data-src="assets/shots/minpoint/devtools.jpg">Developer tools</button>
+          <button data-src="assets/shots/minpoint/account.jpg">ChatGPT</button>
+        </div>
+      </div>
+
+      <div class="features reveal">
+        <article><h3>One menu, everywhere</h3><p>Hold Shift and right-click in any app. The menu adapts to selected text, text fields or the desktop. A normal right-click is untouched.</p></article>
+        <article><h3>Writing help in place</h3><p>Polish, fix grammar, change tone, shorten or translate, with a word-level diff preview. Replace puts the result right where your selection was.</p></article>
+        <article><h3>Private clipboard & snippets</h3><p>Opt-in, encrypted clipboard history that skips password managers, plus a text expander with date, clipboard and cursor variables.</p></article>
+        <article><h3>Copy text off the screen</h3><p>Drag over an image, video or error dialog and get the text back, recognised on-device. Plus window snapping and a quick launcher.</p></article>
+      </div>
+
+      <div class="dl-row reveal" data-repo="MinPoint">
+        <div class="dl-buttons"></div>
+        <p class="dl-meta">macOS 13+ · Windows 10/11 · ChatGPT optional · <a href="https://github.com/Binwin6724/MinPoint" target="_blank" rel="noopener">Source on GitHub</a></p>
+      </div>
+    </section>
+
     <!-- WHY -->
     <section class="why" id="why">
       <h2 class="reveal">Why MinLabz</h2>
@@ -210,19 +251,24 @@
           <h3>MinDesk</h3><p class="ver">Loading…</p>
           <div class="dl-buttons"></div>
         </article>
+        <article class="dl-card reveal" data-repo="MinPoint" style="--accent:#ff7a45;--accent2:#ff5c8a">
+          <img src="assets/icons/minpoint.png" alt="" width="72" height="72" />
+          <h3>MinPoint</h3><p class="ver">Loading…</p>
+          <div class="dl-buttons"></div>
+        </article>
       </div>
 
       <details class="install reveal">
         <summary>First launch on macOS or Windows shows a warning?</summary>
         <p>The builds are signed ad hoc but not yet notarized by Apple, so macOS warns the first time. Right-click the app in Applications, choose <b>Open</b>, then <b>Open</b> again. Or run:</p>
         <pre><code>xattr -dr com.apple.quarantine /Applications/MinTransfer.app</code></pre>
-        <p>(swap in MinSoundFX.app or MinDesk.app). On Windows, SmartScreen may warn because the installer isn't code-signed yet: choose <b>More info ▸ Run anyway</b>.</p>
+        <p>(swap in MinSoundFX.app, MinDesk.app or MinPoint.app). On Windows, SmartScreen may warn because the installer isn't code-signed yet: choose <b>More info ▸ Run anyway</b>.</p>
       </details>
     </section>
   </main>
 
   <footer class="foot">
-    <span class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span> MinLabz</span>
+    <span class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span> MinLabz</span>
     <span>Made with care · MIT licensed · <a href="https://github.com/Binwin6724" target="_blank" rel="noopener">GitHub</a></span>
   </footer>
 

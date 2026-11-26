@@ -1,6 +1,6 @@
 # MinLabz
 
-The website for MinLabz apps: **MinTransfer**, **MinSoundFX** and **MinDesk**.
+The website for MinLabz apps: **MinTransfer**, **MinSoundFX**, **MinDesk** and **MinPoint**.
 
 **Live site:** https://binwin6724.github.io/MinLabz/
 

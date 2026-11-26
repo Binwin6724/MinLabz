@@ -4,6 +4,7 @@ const APPS = {
   MinTransfer: { id: "mintransfer", color: 0x2f80ff, glow: 0x14d3a0 },
   MinSoundFX: { id: "minsoundfx", color: 0x7c5cff, glow: 0x4fb3ff },
   MinDesk: { id: "mindesk", color: 0x0a84ff, glow: 0x9b7bff },
+  MinPoint: { id: "minpoint", color: 0xff7a45, glow: 0xff5c8a },
 };
 
 // Used only if the GitHub API can't be reached (offline / rate-limited).
@@ -11,6 +12,7 @@ const FALLBACK = {
   MinTransfer: { tag: "v1.0.3", assets: ["MinTransfer-1.0.3-mac-arm64.dmg", "MinTransfer-1.0.3-mac-x64.dmg", "MinTransfer-1.0.3-win-x64-setup.exe"] },
   MinSoundFX: { tag: "v1.0.0", assets: ["MinSoundFX-1.0.0-mac-arm64.dmg", "MinSoundFX-1.0.0-mac-x64.dmg", "MinSoundFX-1.0.0-win-x64-setup.exe"] },
   MinDesk: { tag: "v1.0.0", assets: ["MinDesk-1.0.0.dmg"] },
+  MinPoint: { tag: "v0.1.0", assets: ["MinPoint-0.1.0-mac-arm64.dmg", "MinPoint-0.1.0-mac-x64.dmg", "MinPoint-0.1.0-win-x64-setup.exe"] },
 };
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -225,7 +227,7 @@ async function initHero() {
   const icons = await Promise.all(Object.values(APPS).map((a) => loadIcon(THREE, `assets/icons/${a.id}.png`)));
   const tiles = [];
   const names = Object.keys(APPS);
-  const R = 2.25;
+  const R = 2.6;
   names.forEach((name, i) => {
     const app = APPS[name];
     const { texture } = icons[i];
@@ -245,8 +247,8 @@ async function initHero() {
     const mesh = new THREE.Mesh(tileGeo, mat);
     const g = new THREE.Group();
     g.add(mesh);
-    const a = (i / names.length) * Math.PI * 2 + Math.PI / 2;
-    g.userData = { name, id: app.id, base: new THREE.Vector3(Math.cos(a) * R, Math.sin(a) * R * 0.55 + 0.2, Math.sin(a) * 0.6), phase: i * 2.1, scale: 1 };
+    const a = (i / names.length) * Math.PI * 2 + Math.PI / 4;
+    g.userData = { name, id: app.id, base: new THREE.Vector3(Math.cos(a) * R, Math.sin(a) * R * 0.72 + 0.35, Math.sin(a) * 0.6), phase: i * 2.1, scale: 1 };
     g.position.copy(g.userData.base);
     mesh.userData.tile = g;
     world.add(g);
@@ -296,7 +298,7 @@ async function initHero() {
     const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     const halfW = halfH * camera.aspect;
     const px2w = (2 * halfW) / w;
-    const SCENE_W = 8, SCENE_H = 6.2; // tiles + ring footprint at scale 1
+    const SCENE_W = 8.4, SCENE_H = 7; // tiles + ring footprint at scale 1
     const copy = hero.querySelector(".hero-copy").getBoundingClientRect();
     const heroTop = hero.getBoundingClientRect().top;
     const sideBySide = getComputedStyle(hero).getPropertyValue("--stack").trim() !== "1";
