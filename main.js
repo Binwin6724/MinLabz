@@ -191,7 +191,6 @@ initHero().catch((err) => {
 
 async function initHero() {
   const THREE = await import("three");
-  const { RoundedBoxGeometry } = await import("three/addons/geometries/RoundedBoxGeometry.js");
   const { RoomEnvironment } = await import("three/addons/environments/RoomEnvironment.js");
 
   const canvas = document.getElementById("hero-canvas");
@@ -217,31 +216,34 @@ async function initHero() {
   const l2 = new THREE.PointLight(0x7c5cff, 60, 30); l2.position.set(5, -3, 5); scene.add(l2);
   const l3 = new THREE.PointLight(0x14d3a0, 40, 30); l3.position.set(0, 5, -4); scene.add(l3);
 
-  // App tiles (rounded glassy slabs with the app icon on both faces)
-  const loader = new THREE.TextureLoader();
+  // App tiles: a solid rounded slab whose front and back faces ARE the icon
+  // (cropped to the icon's own rounded square), lit and clearcoated like the body.
+  const SIZE = 2.3, DEPTH = 0.34, BEVEL = 0.07;
+  const tileGeo = makeTileGeometry(THREE, SIZE, DEPTH, BEVEL);
+  const icons = await Promise.all(Object.values(APPS).map((a) => loadIcon(THREE, `assets/icons/${a.id}.png`)));
   const tiles = [];
   const names = Object.keys(APPS);
-  const tileGeo = new RoundedBoxGeometry(2.1, 2.1, 0.32, 8, 0.42);
-  const iconGeo = new THREE.PlaneGeometry(2.62, 2.62);
   const R = 2.25;
   names.forEach((name, i) => {
     const app = APPS[name];
-    const tex = loader.load(`assets/icons/${app.id}.png`);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 8;
+    const { texture, edge } = icons[i];
+    // Icon colours come through emissive (true to the artwork); a dim diffuse
+    // plus clearcoat adds real 3D shading and moving highlights on top.
+    const faceMat = new THREE.MeshPhysicalMaterial({
+      map: texture, color: 0x1a1a1a, emissiveMap: texture, emissive: 0xffffff, emissiveIntensity: 0.95, toneMapped: false,
+      roughness: 0.32, metalness: 0, specularIntensity: 0.6, envMapIntensity: 0.18,
+    });
+    const sideMat = new THREE.MeshPhysicalMaterial({
+      color: edge, roughness: 0.22, metalness: 0.15, clearcoat: 1, clearcoatRoughness: 0.1,
+      emissive: edge, emissiveIntensity: 0.35, envMapIntensity: 0.6,
+    });
+    const mesh = new THREE.Mesh(tileGeo, [faceMat, sideMat]);
     const g = new THREE.Group();
-    const body = new THREE.Mesh(
-      tileGeo,
-      new THREE.MeshPhysicalMaterial({ color: app.color, metalness: 0.3, roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.1, emissive: app.glow, emissiveIntensity: 0.08 })
-    );
-    const iconMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false });
-    const front = new THREE.Mesh(iconGeo, iconMat); front.position.z = 0.165;
-    const back = new THREE.Mesh(iconGeo, iconMat); back.position.z = -0.165; back.rotation.y = Math.PI;
-    g.add(body, front, back);
+    g.add(mesh);
     const a = (i / names.length) * Math.PI * 2 + Math.PI / 2;
     g.userData = { name, id: app.id, base: new THREE.Vector3(Math.cos(a) * R, Math.sin(a) * R * 0.55 + 0.2, Math.sin(a) * 0.6), phase: i * 2.1, scale: 1 };
     g.position.copy(g.userData.base);
-    body.userData.tile = g; front.userData.tile = g; back.userData.tile = g;
+    mesh.userData.tile = g;
     world.add(g);
     tiles.push(g);
   });
@@ -284,10 +286,20 @@ async function initHero() {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    // Fit the scene into the free half of the screen, measured in world units.
+    const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
+    const halfW = halfH * camera.aspect;
+    const SCENE_W = 8; // tiles + ring footprint at scale 1
     const wide = w > 900;
-    world.position.x = wide ? Math.min(4.4, 1.2 + w / 450) : 0;
-    world.position.y = wide ? 0.15 : 2.4;
-    world.scale.setScalar(wide ? 0.92 : Math.max(0.55, w / 1000));
+    if (wide) {
+      const sc = Math.min(1, (halfW * 0.92) / SCENE_W);
+      world.scale.setScalar(sc);
+      world.position.set(halfW - (SCENE_W / 2) * sc - halfW * 0.06, 0.15, 0);
+    } else {
+      const sc = Math.min(0.8, (halfW * 1.8) / SCENE_W);
+      world.scale.setScalar(sc);
+      world.position.set(0, halfH * 0.45, 0);
+    }
   }
   addEventListener("resize", resize);
   resize();
@@ -331,7 +343,7 @@ async function initHero() {
     world.rotation.z = sp * 0.15;
     camera.position.x += (mouse.x * 0.8 - camera.position.x) * 0.05;
     camera.position.y += (0.4 + mouse.y * 0.5 + sp * 2 - camera.position.y) * 0.05;
-    camera.lookAt(world.position.x * 0.45, 0, 0);
+    camera.lookAt(0, 0, 0);
 
     tiles.forEach((g) => {
       const { base, phase } = g.userData;
@@ -367,4 +379,63 @@ async function initHero() {
     renderer.render(scene, camera);
   }
   frame();
+}
+
+// Rounded-square slab. Group 0 = front/back faces (UVs span the whole face,
+// back mirrored so the icon reads correctly from behind), group 1 = sides.
+function makeTileGeometry(THREE, size, depth, bevel) {
+  const inner = size - bevel * 2, r = inner * 0.235, h = inner / 2;
+  const shape = new THREE.Shape();
+  shape.moveTo(-h + r, -h);
+  shape.lineTo(h - r, -h); shape.quadraticCurveTo(h, -h, h, -h + r);
+  shape.lineTo(h, h - r); shape.quadraticCurveTo(h, h, h - r, h);
+  shape.lineTo(-h + r, h); shape.quadraticCurveTo(-h, h, -h, h - r);
+  shape.lineTo(-h, -h + r); shape.quadraticCurveTo(-h, -h, -h + r, -h);
+  const geo = new THREE.ExtrudeGeometry(shape, {
+    depth: depth - bevel * 2, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 6, curveSegments: 24,
+  });
+  geo.translate(0, 0, -(depth - bevel * 2) / 2);
+  geo.computeVertexNormals();
+  const pos = geo.attributes.position, nor = geo.attributes.normal, uv = geo.attributes.uv;
+  const cap = geo.groups.find((g) => g.materialIndex === 0);
+  for (let i = cap.start; i < cap.start + cap.count; i++) {
+    const idx = geo.index ? geo.index.getX(i) : i;
+    let u = (pos.getX(idx) + h) / inner, v = (pos.getY(idx) + h) / inner;
+    if (nor.getZ(idx) < 0) u = 1 - u;
+    uv.setXY(idx, u, v);
+  }
+  return geo;
+}
+
+// Crop the icon PNG to its visible rounded square (dropping the transparent
+// margin) and fill the corners with the icon's own edge colour.
+async function loadIcon(THREE, url) {
+  const img = new Image();
+  img.src = url;
+  await img.decode();
+  const c = document.createElement("canvas");
+  c.width = img.width; c.height = img.height;
+  const x = c.getContext("2d", { willReadFrequently: true });
+  x.drawImage(img, 0, 0);
+  const d = x.getImageData(0, 0, c.width, c.height).data;
+  let x0 = c.width, y0 = c.height, x1 = 0, y1 = 0;
+  for (let y = 0; y < c.height; y++) for (let X = 0; X < c.width; X++) {
+    if (d[(y * c.width + X) * 4 + 3] > 200) { if (X < x0) x0 = X; if (X > x1) x1 = X; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  }
+  // Average colour just inside the left/right edges, mid-height.
+  let rr = 0, gg = 0, bb = 0, n = 0;
+  for (let y = y0 + (y1 - y0) * 0.3; y < y0 + (y1 - y0) * 0.7; y += 2) for (const X of [x0 + 4, x1 - 4]) {
+    const k = (Math.round(y) * c.width + X) * 4; rr += d[k]; gg += d[k + 1]; bb += d[k + 2]; n++;
+  }
+  const edge = new THREE.Color(`rgb(${Math.round(rr / n)},${Math.round(gg / n)},${Math.round(bb / n)})`);
+  const out = document.createElement("canvas");
+  out.width = out.height = 1024;
+  const o = out.getContext("2d");
+  o.fillStyle = `#${edge.getHexString()}`;
+  o.fillRect(0, 0, 1024, 1024);
+  o.drawImage(img, x0, y0, x1 - x0 + 1, y1 - y0 + 1, 0, 0, 1024, 1024);
+  const texture = new THREE.CanvasTexture(out);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 8;
+  return { texture, edge };
 }
