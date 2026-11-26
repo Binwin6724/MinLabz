@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MinLabz — Small, honest apps for your Mac and PC</title>
+  <meta name="description" content="MinLabz makes free, open-source desktop apps: MinTransfer (phone backup & recovery), MinSoundFX (system-wide audio enhancer) and MinDesk (safe Mac storage cleaner). Local-only, no accounts." />
+  <meta name="theme-color" content="#07080c" />
+  <meta property="og:title" content="MinLabz — Small, honest apps" />
+  <meta property="og:description" content="MinTransfer, MinSoundFX and MinDesk. Free, open source, local-only." />
+  <meta property="og:image" content="assets/shots/minsoundfx/dashboard.jpg" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://rsms.me" />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="MinLabz home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      MinLabz
+    </a>
+    <nav class="nav-links" aria-label="Products">
+      <a href="#mintransfer">MinTransfer</a>
+      <a href="#minsoundfx">MinSoundFX</a>
+      <a href="#mindesk">MinDesk</a>
+      <a href="#why">Why MinLabz</a>
+    </nav>
+    <a class="btn btn-small" href="#downloads">Download</a>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span> Free · Open source · Local-only</p>
+        <h1>Small apps.<br /><span class="grad">Big difference.</span></h1>
+        <p class="lede">MinLabz builds focused desktop tools that do one job well and never phone home. Move your phone, tune your sound, clean your disk.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#downloads">Get the apps</a>
+          <a class="btn btn-ghost" href="#mintransfer">Take the tour ↓</a>
+        </div>
+        <p class="hint">Drag to spin · click a tile to jump</p>
+      </div>
+      <div class="hero-stats" id="hero-stats">
+        <div><b>3</b><span>apps</span></div>
+        <div><b>0</b><span>accounts needed</span></div>
+        <div><b data-total-downloads>—</b><span>downloads</span></div>
+      </div>
+    </section>
+
+    <!-- PRODUCT: MinTransfer -->
+    <section class="product" id="mintransfer" style="--accent:#2f80ff;--accent2:#14d3a0">
+      <div class="product-head reveal">
+        <img class="app-icon" src="assets/icons/mintransfer.png" alt="" width="96" height="96" />
+        <div>
+          <p class="eyebrow">Phone ⇄ Computer</p>
+          <h2>MinTransfer</h2>
+          <p class="tagline">Back up, restore, recover and erase iPhone and Android phones from your Mac or PC.</p>
+        </div>
+      </div>
+
+      <div class="showcase reveal" data-gallery="mintransfer">
+        <div class="screen tilt">
+          <div class="screen-bar"><i></i><i></i><i></i><span>MinTransfer</span></div>
+          <img class="screen-img" src="assets/shots/mintransfer/devices.jpg" alt="MinTransfer devices screen" />
+          <div class="screen-glare"></div>
+        </div>
+        <div class="thumbs" role="tablist">
+          <button data-src="assets/shots/mintransfer/devices.jpg" class="on">Devices</button>
+          <button data-src="assets/shots/mintransfer/transfer.jpg">Transfer</button>
+          <button data-src="assets/shots/mintransfer/transfer-photos.jpg">Photos</button>
+          <button data-src="assets/shots/mintransfer/backup.jpg">Backup</button>
+          <button data-src="assets/shots/mintransfer/restore.jpg">Restore</button>
+          <button data-src="assets/shots/mintransfer/recover.jpg">Recover</button>
+          <button data-src="assets/shots/mintransfer/erase.jpg">Erase</button>
+          <button data-src="assets/shots/mintransfer/library.jpg">Library</button>
+        </div>
+      </div>
+
+      <div class="features reveal">
+        <article><h3>One app, both phones</h3><p>iPhone, iPad and Android on macOS and Windows, with the same five actions: Transfer, Backup, Restore, Recover, Erase.</p></article>
+        <article><h3>Real iPhone backups</h3><p>Speaks Apple's MobileBackup2 protocol, so backups are complete, restorable and optionally encrypted, just like Finder's.</p></article>
+        <article><h3>Recovery that works</h3><p>Recently Deleted photos, messages with attachments, notes, call history, voice memos and WhatsApp chats from any unencrypted backup.</p></article>
+        <article><h3>Android, no root</h3><p>Photos, videos, apps (including split APKs), contacts and WhatsApp media over Google's own adb, set up automatically.</p></article>
+      </div>
+
+      <div class="dl-row reveal" data-repo="MinTransfer">
+        <div class="dl-buttons"></div>
+        <p class="dl-meta">macOS 12+ · Windows 10/11 · <a href="https://github.com/Binwin6724/MinTransfer" target="_blank" rel="noopener">Source on GitHub</a></p>
+      </div>
+    </section>
+
+    <!-- PRODUCT: MinSoundFX -->
+    <section class="product flip" id="minsoundfx" style="--accent:#7c5cff;--accent2:#4fb3ff">
+      <div class="product-head reveal">
+        <img class="app-icon" src="assets/icons/minsoundfx.png" alt="" width="96" height="96" />
+        <div>
+          <p class="eyebrow">System-wide audio</p>
+          <h2>MinSoundFX</h2>
+          <p class="tagline">Make everything your computer plays sound better: music, films, games and calls.</p>
+        </div>
+      </div>
+
+      <div class="showcase reveal" data-gallery="minsoundfx">
+        <div class="screen tilt">
+          <div class="screen-bar"><i></i><i></i><i></i><span>MinSoundFX</span></div>
+          <img class="screen-img" src="assets/shots/minsoundfx/dashboard.jpg" alt="MinSoundFX dashboard" />
+          <div class="screen-glare"></div>
+        </div>
+        <div class="thumbs" role="tablist">
+          <button data-src="assets/shots/minsoundfx/dashboard.jpg" class="on">Dashboard</button>
+          <button data-src="assets/shots/minsoundfx/experiences.jpg">Experiences</button>
+          <button data-src="assets/shots/minsoundfx/equalizer.jpg">Equalizer</button>
+          <button data-src="assets/shots/minsoundfx/effects.jpg">Effects</button>
+          <button data-src="assets/shots/minsoundfx/devices.jpg">Devices</button>
+        </div>
+      </div>
+
+      <div class="features reveal">
+        <article><h3>Real-time native engine</h3><p>A C++17 DSP engine processes Spotify, YouTube, Netflix, games: anything that plays through your output device.</p></article>
+        <article><h3>Measured headphone profiles</h3><p>35 headphone and earbud corrections from published lab measurements, clearly labelled Measured, Estimated or Generic.</p></article>
+        <article><h3>10-band EQ & effects</h3><p>Virtual surround, dynamic bass, dialogue boost, loudness normalisation and night mode, each adjustable live with A/B compare.</p></article>
+        <article><h3>Safe for your ears</h3><p>An always-on look-ahead limiter and automatic headroom. Quit or uninstall and your normal audio path comes straight back.</p></article>
+      </div>
+
+      <div class="dl-row reveal" data-repo="MinSoundFX">
+        <div class="dl-buttons"></div>
+        <p class="dl-meta">macOS 14.2+ · Windows 10/11 · <a href="https://github.com/Binwin6724/MinSoundFX" target="_blank" rel="noopener">Source on GitHub</a></p>
+      </div>
+    </section>
+
+    <!-- PRODUCT: MinDesk -->
+    <section class="product" id="mindesk" style="--accent:#0a84ff;--accent2:#9b7bff">
+      <div class="product-head reveal">
+        <img class="app-icon" src="assets/icons/mindesk.png" alt="" width="96" height="96" />
+        <div>
+          <p class="eyebrow">Native macOS storage</p>
+          <h2>MinDesk</h2>
+          <p class="tagline">See what's filling your Mac, and clean it up without breaking anything.</p>
+        </div>
+      </div>
+
+      <div class="showcase reveal" data-gallery="mindesk">
+        <div class="screen tilt">
+          <div class="screen-bar"><i></i><i></i><i></i><span>MinDesk</span></div>
+          <img class="screen-img" src="assets/shots/mindesk/dashboard-dark.jpg" alt="MinDesk dashboard" />
+          <div class="screen-glare"></div>
+        </div>
+        <div class="thumbs" role="tablist">
+          <button data-src="assets/shots/mindesk/dashboard-dark.jpg" class="on">Dashboard</button>
+          <button data-src="assets/shots/mindesk/dashboard.jpg">Light mode</button>
+          <button data-src="assets/shots/mindesk/explorer.jpg">Explorer</button>
+          <button data-src="assets/shots/mindesk/large-files.jpg">Large files</button>
+          <button data-src="assets/shots/mindesk/duplicates.jpg">Duplicates</button>
+          <button data-src="assets/shots/mindesk/junk-cache.jpg">Junk & cache</button>
+          <button data-src="assets/shots/mindesk/system-cleanup.jpg">System</button>
+          <button data-src="assets/shots/mindesk/review-sheet.jpg">Review</button>
+        </div>
+      </div>
+
+      <div class="features reveal">
+        <article><h3>Safety-first by design</h3><p>System folders, snapshots, keychains, Mail, iCloud Drive and Photos libraries are hard-blocked in code.</p></article>
+        <article><h3>Trash by default</h3><p>Every removal goes through one review screen with exact paths and sizes. Permanent deletion needs an extra confirmation.</p></article>
+        <article><h3>It explains itself</h3><p>Each finding says why it was flagged and whether it's Safe, Review Required or Protected.</p></article>
+        <article><h3>Real numbers only</h3><p>Measured allocated bytes, hard links counted once, and anything unreadable is reported as incomplete, never guessed.</p></article>
+      </div>
+
+      <div class="dl-row reveal" data-repo="MinDesk">
+        <div class="dl-buttons"></div>
+        <p class="dl-meta">macOS 14+ · Apple silicon & Intel · <a href="https://github.com/Binwin6724/MinDesk" target="_blank" rel="noopener">Source on GitHub</a></p>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="why" id="why">
+      <h2 class="reveal">Why MinLabz</h2>
+      <div class="why-grid">
+        <article class="reveal"><span class="why-ico">⌂</span><h3>Local-only</h3><p>Your files, audio and phone data stay on your machine. No telemetry.</p></article>
+        <article class="reveal"><span class="why-ico">∅</span><h3>No accounts</h3><p>Download, open, use. No sign-up, no subscription, no upsell.</p></article>
+        <article class="reveal"><span class="why-ico">{ }</span><h3>Open source</h3><p>MIT licensed. Read every line on GitHub, build it yourself if you like.</p></article>
+        <article class="reveal"><span class="why-ico">✓</span><h3>Honest</h3><p>Each app says what it can and can't do, and labels guesses as guesses.</p></article>
+      </div>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section class="downloads" id="downloads">
+      <h2 class="reveal">Download</h2>
+      <p class="sub reveal">Always the latest release, pulled live from GitHub. <span id="os-note"></span></p>
+      <div class="dl-cards">
+        <article class="dl-card reveal" data-repo="MinTransfer" style="--accent:#2f80ff;--accent2:#14d3a0">
+          <img src="assets/icons/mintransfer.png" alt="" width="72" height="72" />
+          <h3>MinTransfer</h3><p class="ver">Loading…</p>
+          <div class="dl-buttons"></div>
+        </article>
+        <article class="dl-card reveal" data-repo="MinSoundFX" style="--accent:#7c5cff;--accent2:#4fb3ff">
+          <img src="assets/icons/minsoundfx.png" alt="" width="72" height="72" />
+          <h3>MinSoundFX</h3><p class="ver">Loading…</p>
+          <div class="dl-buttons"></div>
+        </article>
+        <article class="dl-card reveal" data-repo="MinDesk" style="--accent:#0a84ff;--accent2:#9b7bff">
+          <img src="assets/icons/mindesk.png" alt="" width="72" height="72" />
+          <h3>MinDesk</h3><p class="ver">Loading…</p>
+          <div class="dl-buttons"></div>
+        </article>
+      </div>
+
+      <details class="install reveal">
+        <summary>First launch on macOS or Windows shows a warning?</summary>
+        <p>The builds are signed ad hoc but not yet notarized by Apple, so macOS warns the first time. Right-click the app in Applications, choose <b>Open</b>, then <b>Open</b> again. Or run:</p>
+        <pre><code>xattr -dr com.apple.quarantine /Applications/MinTransfer.app</code></pre>
+        <p>(swap in MinSoundFX.app or MinDesk.app). On Windows, SmartScreen may warn because the installer isn't code-signed yet: choose <b>More info ▸ Run anyway</b>.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span> MinLabz</span>
+    <span>Made with care · MIT licensed · <a href="https://github.com/Binwin6724" target="_blank" rel="noopener">GitHub</a></span>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <img alt="" />
+    <button aria-label="Close">×</button>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
